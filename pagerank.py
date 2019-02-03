@@ -7,14 +7,14 @@ from operator import add
 from pyspark import SparkContext
 
 
-def urlweights(urls, rank):
+def urlweights(urls, rank): #weightage for each url jump or link
     """ URL Weights. """
     total_urls = len(urls)
     for url in urls:
         yield (url, rank / total_urls)
 
 
-def pairs(urls):
+def pairs(urls): #get the links from the input file
     """Form Key-Value Pairs with the URLs."""
     parts = re.split(r'\s+', urls)
     return parts[0], parts[1]
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     """Collect and Save to file"""
     for (url, rank) in ranks.collect():
         linkrank = str(str(url)+"    "+str(rank)) + "\n"
-        with open("/home/ad4025/pagerank/pagerankop.txt","a+cd") as myfile:
+        with open("/outputdirectory","a+cd") as myfile:
             myfile.write(str(linkrank))
 
 sc.stop()
